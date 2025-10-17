@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import { Search, ShoppingCart, User, Phone, Mail, ChevronDown, Package, Store, Image, FileText, Printer, Shirt, Camera, Sticker, Coffee, Box, ShoppingBag, Home, Trees, Cpu, Users, Palette } from 'lucide-react'
+import { Search, ShoppingCart, User, Phone, Mail, ChevronDown, Package, Store, Image as ImageIcon, FileText, Printer, Shirt, Camera, Sticker, Coffee, Box, ShoppingBag, Home, Trees, Cpu, Users, Palette } from 'lucide-react'
 
 export default function BocetoSLLanding() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
@@ -35,7 +35,7 @@ export default function BocetoSLLanding() {
 
   // Servicios de impresión
   const impresionesItems = [
-    { icon: <Image className="w-4 h-4" />, label: 'Impresión digital gran formato', id: 'gran-formato' },
+    { icon: <ImageIcon className="w-4 h-4" />, label: 'Impresión digital gran formato', id: 'gran-formato' },
     { icon: <FileText className="w-4 h-4" />, label: 'Impresión digital mediano formato', id: 'mediano-formato' },
     { icon: <Printer className="w-4 h-4" />, label: 'Impresión digital pequeño formato', id: 'pequeno-formato' },
     { icon: <Shirt className="w-4 h-4" />, label: 'Impresión textil', id: 'textil' },
@@ -141,12 +141,17 @@ export default function BocetoSLLanding() {
               
               {/* IMPRESIONES */}
               <div className="relative">
-                <button
-                  ref={(el) => menuRefs.current['impresiones'] = el}
-                  onClick={() => toggleMenu('impresiones')}
+                <Link
+                  href="/impresiones"
                   className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                 >
                   <span>IMPRESIONES</span>
+                </Link>
+                <button
+                  ref={(el) => menuRefs.current['impresiones'] = el}
+                  onClick={() => toggleMenu('impresiones')}
+                  className="ml-1 p-1 text-gray-400 hover:text-red-600 transition-colors"
+                >
                   <ChevronDown className="w-4 h-4" />
                 </button>
                 
@@ -160,13 +165,14 @@ export default function BocetoSLLanding() {
                     }}
                   >
                     {impresionesItems.map((item) => (
-                      <button
+                      <Link
                         key={item.id}
+                        href="/impresiones"
                         className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-3 border-b border-gray-100 last:border-b-0"
                       >
                         {item.icon}
                         <span>{item.label}</span>
-                      </button>
+                      </Link>
                     ))}
                   </div>
                 )}
