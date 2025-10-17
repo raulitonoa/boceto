@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { Search, ShoppingCart, User, Phone, Mail, ChevronDown, Package, Store, Image, FileText, Printer, Shirt, Camera, Sticker, Coffee, Box, ShoppingBag, Home, Trees, Cpu, Users, Palette } from 'lucide-react'
 
 export default function BocetoSLLanding() {
@@ -62,12 +63,7 @@ export default function BocetoSLLanding() {
     { icon: <Users className="w-4 h-4" />, label: 'Asesoría ejecutiva de proyectos', id: 'asesoria-ejecutiva' }
   ]
 
-  // Tienda online
-  const tiendaItems = [
-    { icon: <Palette className="w-4 h-4" />, label: 'Diseño gráfico', id: 'diseno-digital' },
-    { icon: <FileText className="w-4 h-4" />, label: 'Modelismo en papel', id: 'modelismo-digital' },
-    { icon: <Store className="w-4 h-4" />, label: 'Corner Latino', id: 'corner-digital' }
-  ]
+  
 
 
 
@@ -99,9 +95,9 @@ export default function BocetoSLLanding() {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <img 
-                src="/boceto-logo.png" 
+                src="https://github.com/raulitonoa/boceto/raw/main/public/3.jpeg" 
                 alt="Boceto SL Logo" 
-                className="h-12 w-auto"
+                className="h-12 w-auto rounded-lg"
               />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">
@@ -245,37 +241,12 @@ export default function BocetoSLLanding() {
               </div>
 
               {/* TIENDA */}
-              <div className="relative">
-                <button
-                  ref={(el) => menuRefs.current['tienda'] = el}
-                  onClick={() => toggleMenu('tienda')}
-                  className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                >
-                  <span>TIENDA</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                
-                {activeMenu === 'tienda' && menuPositions.tienda && (
-                  <div 
-                    className="w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-50"
-                    style={{
-                      position: 'fixed',
-                      top: `${menuPositions.tienda.top}px`,
-                      left: `${menuPositions.tienda.left}px`
-                    }}
-                  >
-                    {tiendaItems.map((item) => (
-                      <button
-                        key={item.id}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-3 border-b border-gray-100 last:border-b-0"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Link 
+                href="/tienda"
+                className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              >
+                <span>TIENDA</span>
+              </Link>
 
   
 
