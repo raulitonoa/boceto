@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Search, ShoppingCart, User, Phone, Mail, ChevronDown, Package, Store, CreditCard, Image, FileText, Printer, Shirt, Camera, Sticker, Coffee, Box, ShoppingBag, Calendar, PhoneCall, Monitor, Smartphone, Headphones, GraduationCap, Home, Trees, Cpu, Users, Palette, HelpCircle } from 'lucide-react'
+import { Search, ShoppingCart, User, Phone, Mail, ChevronDown, Package, Store, Image, FileText, Printer, Shirt, Camera, Sticker, Coffee, Box, ShoppingBag, Home, Trees, Cpu, Users, Palette } from 'lucide-react'
 
 export default function BocetoSLLanding() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
@@ -52,22 +52,7 @@ export default function BocetoSLLanding() {
     { icon: <Coffee className="w-4 h-4" />, label: 'Pajillas', id: 'pajillas' }
   ]
 
-  // Servicios de asesoría
-  const asesoriaItems = [
-    { icon: <Calendar className="w-4 h-4" />, label: 'Citas', id: 'citas' },
-    { icon: <PhoneCall className="w-4 h-4" />, label: 'Líneas telefónicas', id: 'lineas-telefonicas' },
-    { icon: <Monitor className="w-4 h-4" />, label: 'Asesoramiento de software', id: 'software' },
-    { icon: <Smartphone className="w-4 h-4" />, label: 'Ayuda redes sociales y apps', id: 'redes-sociales' },
-    { icon: <Headphones className="w-4 h-4" />, label: 'Servicios de locutorio', id: 'locutorio' },
-    { icon: <GraduationCap className="w-4 h-4" />, label: 'Capacitaciones', id: 'capacitaciones' }
-  ]
 
-  // Servicios de marketing
-  const marketingItems = [
-    { icon: <Palette className="w-4 h-4" />, label: 'Diseño gráfico', id: 'diseno-grafico' },
-    { icon: <FileText className="w-4 h-4" />, label: 'Modelismo en papel', id: 'modelismo' },
-    { icon: <Store className="w-4 h-4" />, label: 'Corner Latino', id: 'corner-latino' }
-  ]
 
   // Servicios de interiorismo
   const interiorismoItems = [
@@ -84,14 +69,7 @@ export default function BocetoSLLanding() {
     { icon: <Store className="w-4 h-4" />, label: 'Corner Latino', id: 'corner-digital' }
   ]
 
-  // Ayuda
-  const ayudaItems = [
-    { icon: <HelpCircle className="w-4 h-4" />, label: 'Centro de ayuda', id: 'centro-ayuda' },
-    { icon: <PhoneCall className="w-4 h-4" />, label: 'Contacto técnico', id: 'contacto-tecnico' },
-    { icon: <HelpCircle className="w-4 h-4" />, label: 'FAQs', id: 'faqs' },
-    { icon: <Monitor className="w-4 h-4" />, label: 'Tutoriales', id: 'tutoriales' },
-    { icon: <Smartphone className="w-4 h-4" />, label: 'Soporte remoto', id: 'soporte-remoto' }
-  ]
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -119,10 +97,17 @@ export default function BocetoSLLanding() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Boceto SL <span className="text-red-600">Illes Balears</span>
-              </h1>
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/boceto-logo.png" 
+                alt="Boceto SL Logo" 
+                className="h-12 w-auto"
+              />
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Boceto SL <span className="text-red-600">Illes Balears</span>
+                </h1>
+              </div>
             </div>
 
             {/* Search */}
@@ -224,71 +209,7 @@ export default function BocetoSLLanding() {
                 )}
               </div>
 
-              {/* ASESORÍA */}
-              <div className="relative">
-                <button
-                  ref={(el) => menuRefs.current['asesoria'] = el}
-                  onClick={() => toggleMenu('asesoria')}
-                  className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                >
-                  <span>ASESORÍA</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                
-                {activeMenu === 'asesoria' && menuPositions.asesoria && (
-                  <div 
-                    className="w-56 bg-white border border-gray-200 rounded-lg shadow-xl z-50"
-                    style={{
-                      position: 'fixed',
-                      top: `${menuPositions.asesoria.top}px`,
-                      left: `${menuPositions.asesoria.left}px`
-                    }}
-                  >
-                    {asesoriaItems.map((item) => (
-                      <button
-                        key={item.id}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-3 border-b border-gray-100 last:border-b-0"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
 
-              {/* MARKETING */}
-              <div className="relative">
-                <button
-                  ref={(el) => menuRefs.current['marketing'] = el}
-                  onClick={() => toggleMenu('marketing')}
-                  className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                >
-                  <span>MARKETING</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                
-                {activeMenu === 'marketing' && menuPositions.marketing && (
-                  <div 
-                    className="w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-50"
-                    style={{
-                      position: 'fixed',
-                      top: `${menuPositions.marketing.top}px`,
-                      left: `${menuPositions.marketing.left}px`
-                    }}
-                  >
-                    {marketingItems.map((item) => (
-                      <button
-                        key={item.id}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-3 border-b border-gray-100 last:border-b-0"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
 
               {/* INTERIORISMO */}
               <div className="relative">
@@ -356,38 +277,7 @@ export default function BocetoSLLanding() {
                 )}
               </div>
 
-              {/* AYUDA */}
-              <div className="relative">
-                <button
-                  ref={(el) => menuRefs.current['ayuda'] = el}
-                  onClick={() => toggleMenu('ayuda')}
-                  className="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                >
-                  <span>AYUDA</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-                
-                {activeMenu === 'ayuda' && menuPositions.ayuda && (
-                  <div 
-                    className="w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-50"
-                    style={{
-                      position: 'fixed',
-                      top: `${menuPositions.ayuda.top}px`,
-                      left: `${menuPositions.ayuda.left}px`
-                    }}
-                  >
-                    {ayudaItems.map((item) => (
-                      <button
-                        key={item.id}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors flex items-center space-x-3 border-b border-gray-100 last:border-b-0"
-                      >
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+  
 
             </div>
           </nav>
@@ -395,21 +285,110 @@ export default function BocetoSLLanding() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-red-600 to-red-700 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative text-white py-20">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src="/hero-bg.jpg" 
+            alt="Professional business workspace"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-red-600/90 to-red-700/90"></div>
+        </div>
+        
+        {/* Content */}
+        <div className="relative container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Soluciones Integrales para tu Negocio
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Impresión digital, hostelería, asesoría técnica y mucho más. Todo lo que necesitas en un solo lugar.
+            Impresión digital, hostelería, interiorismo y mucho más. Todo lo que necesitas en un solo lugar con calidad profesional.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-red-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button className="px-8 py-3 bg-white text-red-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
               Ver Servicios
             </button>
-            <button className="px-8 py-3 bg-red-800 text-white rounded-lg font-semibold hover:bg-red-900 transition-colors">
+            <button className="px-8 py-3 bg-red-800 text-white rounded-lg font-semibold hover:bg-red-900 transition-colors shadow-lg">
               Contactar
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Showcase */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h3 className="text-3xl font-bold text-center mb-12">
+            Nuestros <span className="text-red-600">Servicios</span>
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* IMPRESIONES */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="aspect-square">
+                <img 
+                  src="/printing-service.jpg" 
+                  alt="Servicios de Impresión"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div className="p-6 text-white">
+                  <h4 className="text-xl font-bold mb-2">IMPRESIONES</h4>
+                  <p className="text-sm opacity-90">Digital, gran formato, textil y más</p>
+                </div>
+              </div>
+            </div>
+
+            {/* HOSTELERÍA */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="aspect-square">
+                <img 
+                  src="/hospitality-service.jpg" 
+                  alt="Servicios de Hostelería"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div className="p-6 text-white">
+                  <h4 className="text-xl font-bold mb-2">HOSTELERÍA</h4>
+                  <p className="text-sm opacity-90">Envases, cajas y suministros</p>
+                </div>
+              </div>
+            </div>
+
+            {/* INTERIORISMO */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="aspect-square">
+                <img 
+                  src="/interior-design.jpg" 
+                  alt="Servicios de Interiorismo"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div className="p-6 text-white">
+                  <h4 className="text-xl font-bold mb-2">INTERIORISMO</h4>
+                  <p className="text-sm opacity-90">Diseño 3D y proyectos</p>
+                </div>
+              </div>
+            </div>
+
+            {/* TIENDA */}
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
+              <div className="aspect-square">
+                <img 
+                  src="/online-store.jpg" 
+                  alt="Tienda Online"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div className="p-6 text-white">
+                  <h4 className="text-xl font-bold mb-2">TIENDA</h4>
+                  <p className="text-sm opacity-90">Productos digitales y más</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -420,27 +399,22 @@ export default function BocetoSLLanding() {
           <h3 className="text-3xl font-bold text-center mb-12">
             Otros <span className="text-red-600">Servicios</span>
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Package className="w-8 h-8 text-blue-600" />
+          <div className="grid md:grid-cols-1 gap-8 max-w-2xl mx-auto">
+            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="aspect-[4/3]">
+                <img 
+                  src="/latin-products.jpg" 
+                  alt="Espacio de productos latinos"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
-              <h4 className="text-xl font-semibold mb-3">Custodia y entrega de paquetes</h4>
-              <p className="text-gray-600">Servicio seguro de logística y entrega</p>
-            </div>
-            <div className="text-center p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Store className="w-8 h-8 text-green-600" />
+              <div className="p-6 bg-white">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Store className="w-6 h-6 text-green-600" />
+                </div>
+                <h4 className="text-xl font-semibold mb-3 text-center">Espacio de productos latinos</h4>
+                <p className="text-gray-600 text-center">Variedad de productos latinoamericanos</p>
               </div>
-              <h4 className="text-xl font-semibold mb-3">Espacio de productos latinos</h4>
-              <p className="text-gray-600">Variedad de productos latinoamericanos</p>
-            </div>
-            <div className="text-center p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CreditCard className="w-8 h-8 text-purple-600" />
-              </div>
-              <h4 className="text-xl font-semibold mb-3">Servicio de remesas a Cuba</h4>
-              <p className="text-gray-600">Transferencias de dinero seguras</p>
             </div>
           </div>
         </div>
@@ -453,16 +427,20 @@ export default function BocetoSLLanding() {
             Lo más <span className="text-red-600">destacado</span>
           </h3>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gray-200 flex items-center justify-center">
-                <Package className="w-16 h-16 text-gray-400" />
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src="/pizza-box.jpg" 
+                  alt="Caja de Pizza 40x40"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="text-xl font-semibold">Caja de Pizza 40x40</h4>
                   <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded">Más vendido</span>
                 </div>
-                <p className="text-gray-600 mb-4">Perfecta para pizzerías, resistente y de calidad</p>
+                <p className="text-gray-600 mb-4">Perfecta para pizzerías, resistente y de calidad superior</p>
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-red-600">12.50€</span>
                   <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
@@ -471,16 +449,21 @@ export default function BocetoSLLanding() {
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gray-200 flex items-center justify-center">
-                <Coffee className="w-16 h-16 text-gray-400" />
+            
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src="/custom-mug.jpg" 
+                  alt="Taza Personalizada"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
                   <h4 className="text-xl font-semibold">Taza Personalizada</h4>
                   <span className="bg-green-100 text-green-600 text-xs px-2 py-1 rounded">Personalizable</span>
                 </div>
-                <p className="text-gray-600 mb-4">Tazas cerámica con tus diseños personalizados</p>
+                <p className="text-gray-600 mb-4">Tazas cerámica premium con tus diseños personalizados</p>
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-bold text-red-600">8.95€</span>
                   <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
@@ -489,9 +472,14 @@ export default function BocetoSLLanding() {
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="h-48 bg-gray-200 flex items-center justify-center">
-                <FileText className="w-16 h-16 text-gray-400" />
+            
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src="/airplane-model.jpg" 
+                  alt="Revista/Modelo Avión"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
@@ -505,6 +493,66 @@ export default function BocetoSLLanding() {
                     Añadir
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-red-600 to-red-700 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-3xl md:text-4xl font-bold mb-6">
+            ¿Listo para llevar tu negocio al siguiente nivel?
+          </h3>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Únete a más de 5000 clientes que ya confían en Boceto SL para sus soluciones integrales de negocio.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="px-8 py-4 bg-white text-red-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg text-lg">
+              Solicitar Presupuesto
+            </button>
+            <button className="px-8 py-4 bg-red-800 text-white rounded-lg font-semibold hover:bg-red-900 transition-colors shadow-lg text-lg">
+              Ver Catálogo Completo
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-3xl font-bold mb-6">
+                Sobre <span className="text-red-600">Boceto SL</span>
+              </h3>
+              <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                Con más de 15 años de experiencia en el sector, Boceto SL se ha consolidado como líder en soluciones integrales para empresas en Illes Balears. Nuestro compromiso con la calidad y la innovación nos permite ofrecer servicios adaptados a las necesidades de cada cliente.
+              </p>
+              <p className="text-gray-600 mb-8 text-lg leading-relaxed">
+                Contamos con un equipo de profesionales altamente cualificados que combinan creatividad y tecnología para entregar resultados excepcionales en impresión digital, hostelería, interiorismo y servicios digitales.
+              </p>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-red-600 mb-2">15+</div>
+                  <div className="text-gray-600">Años de experiencia</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-red-600 mb-2">5000+</div>
+                  <div className="text-gray-600">Clientes satisfechos</div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <img 
+                src="/team-meeting.jpg" 
+                alt="Equipo profesional de Boceto SL"
+                className="rounded-lg shadow-xl w-full"
+              />
+              <div className="absolute -bottom-6 -right-6 bg-red-600 text-white p-6 rounded-lg shadow-xl">
+                <div className="text-2xl font-bold mb-1">Calidad Garantizada</div>
+                <div className="text-sm">Certificación ISO 9001</div>
               </div>
             </div>
           </div>

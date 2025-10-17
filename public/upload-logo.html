@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Logo - Boceto SL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .upload-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .upload-area {
+            border: 2px dashed #dc2626;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            background-color: #fef2f2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            background-color: #fee2e2;
+            border-color: #b91c1c;
+        }
+        .upload-area.dragover {
+            background-color: #fee2e2;
+            border-color: #b91c1c;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .btn {
+            background-color: #dc2626;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background-color: #b91c1c;
+        }
+        .btn-secondary {
+            background-color: #6b7280;
+        }
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+        .preview {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .status {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #dc2626;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1 style="color: #dc2626; text-align: center;">Subir Logo - Boceto SL</h1>
+        <p style="text-align: center; color: #6b7280;">
+            Sube tu logo personalizado para reemplazar el actual en el sitio web
+        </p>
+
+        <div class="upload-area" id="uploadArea">
+            <div>
+                <p style="font-size: 18px; margin-bottom: 10px;">📁 Arrastra tu logo aquí</p>
+                <p style="color: #6b7280; margin-bottom: 15px;">o haz clic para seleccionar</p>
+                <button class="btn" onclick="document.getElementById('fileInput').click()">
+                    Seleccionar Archivo
+                </button>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)">
+        </div>
+
+        <div class="preview" id="preview" style="display: none;">
+            <h3>Vista Previa:</h3>
+            <img id="previewImg" src="" alt="Vista previa del logo">
+            <p id="fileName" style="margin-top: 10px; color: #6b7280;"></p>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Subiendo logo...</p>
+        </div>
+
+        <div id="status"></div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" id="uploadBtn" onclick="uploadLogo()" style="display: none;">
+                Subir Logo
+            </button>
+            <button class="btn btn-secondary" onclick="resetUpload()">
+                Cancelar
+            </button>
+        </div>
+
+        <div style="margin-top: 30px; padding: 15px; background-color: #f9fafb; border-radius: 6px;">
+            <h4 style="color: #374151; margin-bottom: 10px;">📋 Instrucciones:</h4>
+            <ul style="color: #6b7280; margin: 0; padding-left: 20px;">
+                <li>Formatos aceptados: PNG, JPG, JPEG, SVG</li>
+                <li>Tamaño recomendado: 200x200px o superior</li>
+                <li>El logo reemplazará al actual automáticamente</li>
+                <li>La subida es segura y temporal</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let selectedFile = null;
+
+        // Drag and drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            // Validate file type
+            const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml'];
+            if (!validTypes.includes(file.type)) {
+                showStatus('Por favor, selecciona un archivo de imagen válido (PNG, JPG, JPEG, SVG)', 'error');
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showStatus('El archivo es demasiado grande. Máximo 5MB permitido.', 'error');
+                return;
+            }
+
+            selectedFile = file;
+            showPreview(file);
+            document.getElementById('uploadBtn').style.display = 'inline-block';
+        }
+
+        function showPreview(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('fileName').textContent = `Archivo: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+                document.getElementById('preview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function uploadLogo() {
+            if (!selectedFile) {
+                showStatus('Por favor, selecciona un archivo primero', 'error');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const status = document.getElementById('status');
+            
+            loading.style.display = 'block';
+            status.innerHTML = '';
+
+            const formData = new FormData();
+            formData.append('logo', selectedFile);
+
+            try {
+                const response = await fetch('/api/upload-logo', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showStatus('✅ ¡Logo subido exitosamente! El sitio web se actualizará en unos segundos.', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    showStatus(`❌ Error: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Error de conexión. Por favor, intenta nuevamente.', 'error');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function resetUpload() {
+            selectedFile = null;
+            document.getElementById('fileInput').value = '';
+            document.getElementById('preview').style.display = 'none';
+            document.getElementById('uploadBtn').style.display = 'none';
+            document.getElementById('status').innerHTML = '';
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.className = `status ${type}`;
+            status.textContent = message;
+            status.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
